@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Result from "./result";
 
 const Home = () => {
   const [query, setQuery] = React.useState("");
@@ -13,8 +14,8 @@ const Home = () => {
   };
   React.useEffect(() => submitQuery());
   const submitQuery = async (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
 
     try {
       const { data } = await axios.get(
@@ -32,57 +33,28 @@ const Home = () => {
   return (
     <Wrapper>
       <div className="container">
-        <div className="search_input_wrapper">
-          <form onSubmit={submitQuery}>
-            <input
-              type="text"
-              placeholder="What would you like to search?"
-              onChange={handleChange}
-              value={query}
-              className="search_input"
-            />
-            <button type="submit">Search</button>
-          </form>
+        <div className="row">
+          <div className="col-sm-10 mx-auto">
+            <div className="search_input_wrapper">
+              <form onSubmit={submitQuery}>
+                <input
+                  type="text"
+                  placeholder="What would you like to search?"
+                  onChange={handleChange}
+                  value={query}
+                  className="search_input"
+                />
+                <button type="submit">Search</button>
+              </form>
+            </div>
+          </div>
         </div>
 
         {/* SEARCH RESULTS SYNTAX STARTS HERE */}
         <div>
-          {loading && <h1>Loading...</h1>}
+          {/* {loading && <h1>Loading...</h1>} */}
           {!loading &&
-            result.map((word) => (
-              <>
-                <div>
-                  <h1 className="wordTitle">{word.word}</h1>
-                  <em>{word.phonetic}</em>
-                  <br />
-                  <h3>{word.meanings[0].partOfSpeech}</h3>
-                  <p>{word.meanings[0].definitions[0].definition}</p>
-                  <em>Example: {word.meanings[0].definitions[0].example}</em>
-                </div>
-                <div>
-                  {word.length > 1 ? (
-                    <>
-                      <h3>{word.meanings[1].partOfSpeech}</h3>
-                      <p>{word.meanings[1].definitions[0].definition}</p>
-                      <em>
-                        Example: {word.meanings[1].definitions[0].example}
-                      </em>
-                    </>
-                  ) : null}
-                </div>
-                <div>
-                  {word.length > 2 ? (
-                    <>
-                      <h3>{word.meanings[2].partOfSpeech}</h3>
-                      <p>{word.meanings[2].definitions[0].definition}</p>
-                      <em>
-                        Example: {word.meanings[2].definitions[0].example}
-                      </em>
-                    </>
-                  ) : null}
-                </div>
-              </>
-            ))}
+            result.map((word) => <Result word={word} key={word.word} />)}
         </div>
       </div>
     </Wrapper>
@@ -94,25 +66,24 @@ const Wrapper = styled.div`
     font-size: 50px !important;
   }
   .search_input_wrapper {
-    display: flex;
-    flex-flow: row;
     align-items: center;
     justify-content: center;
     margin-top: 4rem;
 
     .search_input {
       background-color: transparent;
-      border-bottom: 1px solid var(--color);
-      width: 500px;
-      padding: 13px 16px;
+      border-bottom: 1px solid #b2b2b2;
+      width: 100%;
+      padding: 13px 0;
       color: var(--color);
       outline: none;
       border-top: none;
       border-right: none;
       border-left: none;
+      font-size: 30px;
       &::placeholder {
-        color: #a4a3a3;
-        font-size: 24px;
+        color: #b2b2b2;
+        font-size: 30px;
       }
     }
     button {

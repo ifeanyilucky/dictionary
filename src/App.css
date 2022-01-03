@@ -1,0 +1,20 @@
+@font-face {
+  font-family: Almarena Display;
+  src: url(/public/fonts/Almarena.otf);
+}
+@font-face {
+  font-family: Almarena Regular;
+  src: url("/public/fonts/Almarena-regular.otf");
+}
+:root {
+  --bg-color: #554df6;
+  --text-color: #414141;
+  --color: #fff;
+  --font: Almarena Regular;
+  --logo-font: Almarena Display;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--color) !important;
+  font-family: var(--font);
+}
